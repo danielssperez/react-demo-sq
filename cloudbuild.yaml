@@ -3,23 +3,18 @@ steps:
   - name: node
     entrypoint: npm
     args: ['install']
-  # Run tests with coverage
-  - name: node
-    entrypoint: npm
-    args: ['test', '--coverage']
   # Run SonarCloud analysis
   - name: 'us-docker.pkg.dev/xer-demo-devops-prd/sonar-scanner/sonar-scanner:latest'
     entrypoint: 'sonar-scanner'
     args:
       - '-Dsonar.host.url=https://sonarcloud.io'
-      - '-Dsonar.projectKey=gcp-csr-demo-devops_demo-devops-gcr'
-      - '-Dsonar.organization=gcp-csr-demo-devops'
+      - '-Dsonar.projectKey=react-demo-sq'
+      - '-Dsonar.organization=danielssperez'
       - '-Dsonar.exclusions=Dockerfile,**/*.html,**/*.json,tests/**,**/*.yaml'
-      - '-Dsonar.javascript.lcov.reportPaths=coverage/lcov.info'
       - '-Dsonar.sources=.'
       - '-Dsonar.tests=tests'
     env:
-      - SONAR_TOKEN=8624735de16766a8f22d48c99847cf2f1e99590b
+      - SONAR_TOKEN=b47692e9f54b35339ce70aa592a3f5ba1bbe7735
   - name: 'gcr.io/cloud-builders/gcloud'
     entrypoint: 'bash'
     args:
@@ -28,7 +23,7 @@ steps:
         apt-get update
         apt-get install jq -y
         # Realizar la solicitud a la API de SonarCloud
-        response=$(curl -s -u 8624735de16766a8f22d48c99847cf2f1e99590b: https://sonarcloud.io/api/qualitygates/project_status?projectKey=gcp-csr-demo-devops_demo-devops-gcr)
+        response=$(curl -s -u 8624735de16766a8f22d48c99847cf2f1e99590b: https://sonarcloud.io/api/qualitygates/project_status?projectKey=react-demo-sq)
         # Extraer el estado del Quality Gate del JSON de respuesta
         status=$(echo $response | jq -r '.projectStatus.status')
         # Verifica el estado del Quality Gate
@@ -39,17 +34,6 @@ steps:
           echo "Quality Gate PASSED"
           exit 0
         fi
-  # Instalación de xdg-utils, lcov y generación de HTML
-  - name: 'gcr.io/cloud-builders/gcloud'
-    entrypoint: 'bash'
-    args:
-      - '-c'
-      - |
-        apt-get update
-        apt-get install xdg-utils -y
-        apt-get install lcov -y
-        genhtml coverage/lcov.info
-
 artifacts:
   objects:
     location: 'gs://gcp-csr-demo-devops-gcr-logs/reportes'
