@@ -10,9 +10,10 @@ steps:
       - '-Dsonar.host.url=https://sonarcloud.io'
       - '-Dsonar.projectKey=react-demo-sq'
       - '-Dsonar.organization=danielssperez'
-      - '-Dsonar.exclusions=Dockerfile,**/*.html,**/*.json,**/*.yaml'
-      - '-Dsonar.sources=.'
+      - '-Dsonar.sources=src'
       - '-Dsonar.tests=src/tests'
+      - '-Dsonar.exclusions=Dockerfile,**/*.html,**/*.json,**/*.yaml'
+      - '-Dsonar.login=b47692e9f54b35339ce70aa592a3f5ba1bbe7735'
     env:
       - SONAR_TOKEN=b47692e9f54b35339ce70aa592a3f5ba1bbe7735
   - name: 'gcr.io/cloud-builders/gcloud'
