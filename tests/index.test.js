@@ -2,7 +2,7 @@
 // Archivo: App.test.js
 
 import { render, screen } from '@testing-library/react';
-import App from '../App';
+import App from '../src/App';
 
 // Test básico para verificar si el componente se renderiza correctamente
 test('renders learn react link', () => {
