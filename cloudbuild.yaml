@@ -12,7 +12,7 @@ steps:
       - '-Dsonar.organization=danielssperez'
       - '-Dsonar.exclusions=Dockerfile,**/*.html,**/*.json,tests/**,**/*.yaml'
       - '-Dsonar.sources=.'
-      - '-Dsonar.tests=tests'
+      - '-Dsonar.tests=src/tests'
     env:
       - SONAR_TOKEN=b47692e9f54b35339ce70aa592a3f5ba1bbe7735
   - name: 'gcr.io/cloud-builders/gcloud'
