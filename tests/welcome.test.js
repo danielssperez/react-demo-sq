@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom'; // Asegúrate de importar esto para usar `toBeInTheDocument`
-import Welcome from './Welcome';
+import Welcome from '../src/Welcome';
+import React from 'react'; // Agregar esta línea
 
 test('renders welcome message with username', () => {
   render(<Welcome username="JohnDoe" />);

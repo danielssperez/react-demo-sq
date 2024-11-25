@@ -1,6 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import App from './App';
+import App from '../src/App';
+import React from 'react'; // Agregar esta línea
 
 test('renders login form initially', () => {
   render(<App />);

@@ -7,7 +7,7 @@ steps:
   # Paso 2: Ejecutar pruebas con cobertura
   - name: 'node:16'
     entrypoint: 'npm'
-    args: ['test', '--', '--coverage']
+    args: ['test']
 
   # Paso 3: Instalar Sonar Scanner
   - name: 'node:16'
@@ -27,6 +27,7 @@ steps:
       - '-Dsonar.exclusions=Dockerfile,**/*.html,**/*.json,**/*.yaml,src/tests/**'
       - '-Dsonar.javascript.lcov.reportPaths=coverage/lcov.info'
       - '-Dsonar.sources=src'
+      - '-Dsonar.tests=src/tests'
   - name: 'gcr.io/cloud-builders/gcloud'
     entrypoint: 'bash'
     args:
