@@ -13,7 +13,7 @@ steps:
       - '-Dsonar.exclusions=Dockerfile,**/*.html,**/*.json,**/*.yaml,src/tests/**'
       - '-Dsonar.javascript.lcov.reportPaths=coverage/lcov.info'
       - '-Dsonar.sources=src'
-      - '-Dsonar.tests=tests'
+      - '-Dsonar.tests=src/tests'
     env:
       - SONAR_TOKEN=b47692e9f54b35339ce70aa592a3f5ba1bbe7735
   - name: 'gcr.io/cloud-builders/gcloud'
