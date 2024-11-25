@@ -1,11 +1,25 @@
 steps:
-  # Install dependencies
-  - name: node
-    entrypoint: npm
-    args: ['install']
-  # Run SonarCloud analysis
-  - name: 'us-docker.pkg.dev/xer-demo-devops-prd/sonar-scanner/sonar-scanner:latest'
+  # Paso 1: Instalar dependencias
+  - name: 'node:16'
+    entrypoint: 'npm'
+    args: ['ci']
+
+  # Paso 2: Ejecutar pruebas con cobertura
+  - name: 'node:16'
+    entrypoint: 'npm'
+    args: ['test', '--', '--coverage']
+
+  # Paso 3: Instalar Sonar Scanner
+  - name: 'node:16'
+    entrypoint: 'npm'
+    args: ['install', '-g', 'sonar-scanner']
+
+  # Paso 4: Ejecutar Sonar Scanner
+  - name: 'node:16'
     entrypoint: 'sonar-scanner'
+    env:
+      - 'SONAR_HOST_URL=https://sonarcloud.io'
+      - 'SONAR_LOGIN=b47692e9f54b35339ce70aa592a3f5ba1bbe7735'
     args:
       - '-Dsonar.host.url=https://sonarcloud.io'
       - '-Dsonar.projectKey=react-demo-sq'
@@ -14,8 +28,6 @@ steps:
       - '-Dsonar.javascript.lcov.reportPaths=coverage/lcov.info'
       - '-Dsonar.sources=src'
       - '-Dsonar.tests=src/tests'
-    env:
-      - SONAR_TOKEN=b47692e9f54b35339ce70aa592a3f5ba1bbe7735
   - name: 'gcr.io/cloud-builders/gcloud'
     entrypoint: 'bash'
     args:
@@ -39,6 +51,5 @@ artifacts:
   objects:
     location: 'gs://gcp-csr-demo-devops-gcr-logs/reportes'
     paths: ['index.html']
-
 
 logsBucket: gcp-csr-demo-devops-gcr-logs
