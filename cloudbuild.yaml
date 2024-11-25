@@ -10,7 +10,7 @@ steps:
       - '-Dsonar.host.url=https://sonarcloud.io'
       - '-Dsonar.projectKey=react-demo-sq'
       - '-Dsonar.organization=danielssperez'
-      - '-Dsonar.exclusions=Dockerfile,**/*.html,**/*.json,**/*.yaml'
+      - '-Dsonar.exclusions=Dockerfile,**/*.html,**/*.json,**/*.yaml,src/tests/**'
       - '-Dsonar.javascript.lcov.reportPaths=coverage/lcov.info'
       - '-Dsonar.sources=src'
       - '-Dsonar.tests=tests'
