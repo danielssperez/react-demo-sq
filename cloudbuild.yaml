@@ -42,9 +42,5 @@ steps:
           exit 0
         fi
 
-artifacts:
-  objects:
-    location: 'gs://gcp-csr-demo-devops-gcr-logs/reportes'
-    paths: ['index.html']
 
 logsBucket: gcp-csr-demo-devops-gcr-logs
